@@ -10,13 +10,15 @@ function main()
     %%Assign initial values
     planetMultiDArray(1,:,1) = [100, 0,0,0,0,0,0];
     planetMultiDArray(1,:,2) = [1, 1,1,1,2,2,2];
-    planetMultiDArray(1,:,3) = [42, 3,3,3,4,4,4];
+    toughWank=42;
+    planetMultiDArray(1,:,3) = [toughWank, 3,3,3,4,4,4];
     disp(planetMultiDArray);
     for i=1:length(times)
         for j=1:planetNumber
         	%Function call returning new x, new y...;
             targetPlanet = planetMultiDArray(i,:,j);
-            acceleration = [0,0,0];
+            disp(targetPlanet);
+            disp(targetPlanet(2));
             for k=1:planetNumber
                 if k~=j
                     %enter to force calc
@@ -24,11 +26,10 @@ function main()
                     r2=targetPlanet(3)-planetMultiDArray(i,3,k);
                     r3=targetPlanet(4)-planetMultiDArray(i,4,k);
                     r=[r1,r2,r3];
-                    accFromKthPlanet = gravityAccCalc(planetMultiDArray(i,1,k), r);
-                    acceleration = acceleration + accFromKthPlanet;
+                    gravityAccCalc(planetMultiDArray(i,1,k), r);
+                    %otherPlanets(count,:) = planetMultiDArray(i,:,k);
                 end
             end
-            disp(acceleration);
         end
     end
 end
@@ -40,8 +41,13 @@ function times=timeArray()
     times = linspace(startTime, endTime, 1+(endTime-startTime)/timeStep);
 end
 
-function accel=gravityAccCalc(M, r)
+function acceleration=gravityAccCalc(M, r)
+%This could be wrong, maybe needs normal
     G=1;
     coef= -G*M;
+    accX=-coef/r(1)^2;
+    accY=-coef/r(2)^2;
+    accZ=-coef/r(3)^2; 
     accel = coef*r/norm(r)^3;
+    acceleration = [accX, accY, accZ];
 end
