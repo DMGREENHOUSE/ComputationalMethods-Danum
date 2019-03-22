@@ -16,7 +16,5 @@ function main()
     
     populatedArray=iterate(planetMultiDArray, times, tau);
     disp(planetMultiDArray);
-    
     plotIt(populatedArray)
 end
-
