@@ -17,14 +17,17 @@ function populatedArray=iterate(planetMultiDArray, times)
                     relativeState = targetPlanetState - kthPlanetState;
                     %correct r as necessary (re-add on distance from other
                     %planet)
-                    relativeState = rk4(relativeState,times(i),tau,@der, kthPlanetMass);
+                    relativeState = rk4(relativeState,tau,@der, kthPlanetMass);
                     % displacement and velocity corrections
-                    deltaState = deltaState + kthPlanetState + relativeState - targetPlanetState;
+                    changeInState = kthPlanetState + relativeState - targetPlanetState;
+                    if (deltaState(1)^2 + changeInState(2)^2 + changeInState(3)^2)> (deltaState(1)^2 + deltaState(2)^2 + deltaState(3)^2)
+                        deltaState=changeInState;
+                    end
                 end
             end
             finalState = targetPlanetState + deltaState;
             planetMultiDArray(i+1,:,j) = [targetPlanetMass, finalState];
-            %planetMultiDArray(i+1,:,1) = [1, 0, 0, 0, 0, 0, 0];
+            planetMultiDArray(i+1,:,1) = [1.989*10^30, 0, 0, 0, 0, 0, 0];
         end
     end
     populatedArray = planetMultiDArray;

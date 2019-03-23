@@ -1,4 +1,4 @@
-function deriv=der(state,t, M)
+function deriv=der(state, M)
     G=6.67*10^-11;
     %Unravel the state
     r=[state(1) state(2) state(3)];

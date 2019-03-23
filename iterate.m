@@ -6,25 +6,30 @@ function populatedArray=iterate(planetMultiDArray, times)
         for j=1:PLANET_NUMBER
             disp("NEWPLANET: " + j + "         Time: " + i)
             
-            targetPlanetState = timePoint(1,2:7,j)
+            targetPlanetState = timePoint(1,2:7,j);
             targetPlanetMass = timePoint(1,1,j);
             deltaState = [0,0,0,0,0,0];
             for k=1:PLANET_NUMBER
                 if k~=j
-                    kthPlanetState = timePoint(1,2:7,k)
+                    kthPlanetState = timePoint(1,2:7,k);
                     kthPlanetMass = timePoint(1,1,k);
                     % find state of target relative to the kth planets
-                    relativeState = targetPlanetState - kthPlanetState;
+                    if k<j
+                        relativeState = targetPlanetState - kthPlanetState;
                     %correct r as necessary (re-add on distance from other
                     %planet)
-                    relativeState = rk4(relativeState,times(i),tau,@der, kthPlanetMass);
+                    else
+                        relativeState = -targetPlanetState + kthPlanetState;
+                    end
+                    relativeChange = rk4(relativeState,tau,@der, kthPlanetMass);
                     % displacement and velocity corrections
-                    deltaState = deltaState + kthPlanetState + relativeState - targetPlanetState;
+                    deltaState = deltaState + relativeChange;
                 end
+                %%%%THE SUN's DATA IS BEING SAVED THE SAME AS THE EARTHS
             end
-            finalState = targetPlanetState + deltaState;
+            finalState = targetPlanetState + deltaState
             planetMultiDArray(i+1,:,j) = [targetPlanetMass, finalState];
-            %planetMultiDArray(i+1,:,1) = [1, 0, 0, 0, 0, 0, 0];
+            %planetMultiDArray(i+1,:,1) = [1.989*10^30, 0, 0, 0, 0, 0, 0];
         end
     end
     populatedArray = planetMultiDArray;
