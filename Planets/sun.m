@@ -1,6 +1,6 @@
 function planet=sun()
 %%%%REWRITE
-    mass = [1];
+    mass = [1.989*10^30];
     r = [0,0,0];
     v = [0,0,0];
     planet=[mass, r, v];

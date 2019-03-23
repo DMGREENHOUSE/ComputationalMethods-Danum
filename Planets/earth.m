@@ -7,8 +7,8 @@ function planet=earth()
 %(fractions of sun-earth)
 %Should also be able to account for moons (make small deviations relative
 %to orbiting body)
-    mass = [10^-6];
-    r = [0,1,0];
-    v = [2*pi,0,0];
+    mass = [5.972*10^24];
+    r = [149.6*10^9,0,0];
+    v = [0,29785.67831,0];
     planet=[mass, r, v];
 end
