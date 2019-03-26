@@ -8,7 +8,8 @@ function planet=earth()
 %Should also be able to account for moons (make small deviations relative
 %to orbiting body)
     mass = [5.972*10^24];
+    radius = 6.371e+6;
     r = [149.6*10^9,0,0];
-    v = [0,29785.67831,0];
-    planet=[mass, r, v];
+    v = [0,-29785.67831,0];
+    planet=[mass, radius, r, v];
 end

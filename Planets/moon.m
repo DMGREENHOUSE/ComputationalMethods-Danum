@@ -1,7 +1,8 @@
 function planet=moon()
 %%%%REWRITE
-    mass = [3.7*10^-8];
-    r = [0.00257,1,0];
-    v = [2*pi,-0.2184,0];
-    planet=[mass, r, v];
+    mass = [7.348*10^22];
+    radius = 1.7371e+6;
+    r = [149.6*10^9,0,+3.844*10^8];
+    v = [-0.3353e+03,-29785.67831,0];
+    planet=[mass, radius, r, v];
 end
