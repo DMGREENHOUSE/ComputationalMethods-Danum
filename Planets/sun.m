@@ -1,7 +1,7 @@
 function planet=sun()
-%%%%REWRITE
-    mass = [1.989*10^30];
-    radius = 6.9551e+8;
+    AU=149.6*10^9
+    mass = 1;
+    radius = 6.9551e+8/Au;
     r = [0,0,0];
     v = [0,0,0];
     planet=[mass, radius r, v];

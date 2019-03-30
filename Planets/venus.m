@@ -1,8 +1,8 @@
 function planet=venus()
 %%%%REWRITE
-    mass = [4.867*10^24];
+    mass = 4.8675*10^24;
     radius = 6.0518e+6;
-    r = [0,108.2e+9,0];
-    v = [3.4971e+04,0,0];
-    planet=[mass, radius, r, v];
+    time=224.701;
+    distoSun =108.2*e+9;
+    planet=units(mass, radius, distoSun, time)
 end

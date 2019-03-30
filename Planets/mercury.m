@@ -1,8 +1,7 @@
 function planet=mercury()
-%%%%REWRITE
-    mass = [3.285*10^23];
-    radius = 2.4397e+6;
-    r = [0,57.91*10^9,0];
-    v = [47856,0,0];
-    planet=[mass, radius, r, v];
+    mass = 3.3011*10^23
+    radius = 2.4397e+6
+    time=87.968
+    distoSun = 57.9*e+9
+    planet=units(mass, radius, distoSun, time)
 end
