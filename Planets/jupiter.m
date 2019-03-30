@@ -3,5 +3,5 @@ function planet=jupiter()
     radius = 7.1492e+7;
     time=4332.589;
     distoSun = 7.7857e+11;
-    planet=units(mass, radius, distoSun, time)
+    planet=units(mass, radius, distoSun, time);
 end

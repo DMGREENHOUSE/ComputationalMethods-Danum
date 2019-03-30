@@ -1,6 +1,6 @@
 function times=timeArray()
     startTime = 0;
-    endTime = 2592000*120;
-    tau = 2592000/4;
+    endTime = 5;
+    tau = 0.01;
     times = linspace(startTime, endTime, 1+(endTime-startTime)/tau);
 end
