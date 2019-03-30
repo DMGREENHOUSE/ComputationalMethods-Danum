@@ -1,0 +1,5 @@
+currentTime
+currentYear
+currentDay = ;
+disp(floor(2.99/1));
+disp(mod(.99,365));

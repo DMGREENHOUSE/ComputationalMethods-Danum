@@ -1,3 +1,5 @@
-otherPlanets = zeros(5, 7);
-disp(floor(607/365));
-disp(mod(607,365));
+currentTime=3.2;
+currentYear=floor(currentTime/1);
+currentDay = (currentTime-currentYear)*365.256;
+disp(currentYear);
+disp(currentDay);

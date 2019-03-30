@@ -10,7 +10,7 @@ function plotIt3D(planetMultiDArray, times)
     for i=1:length(planetMultiDArray(:,1,1))
         clf('reset');
         hold on
-        currentTime = times(i);
+        currentTime = times(i)*365.256;
         currentYear = floor(currentTime/365.256);
         currentDay = mod(currentTime, 365.256);
         timePoint = planetMultiDArray(i,:,:);
