@@ -1,4 +1,4 @@
-function plotIt3D(planetMultiDArray)
+function plotIt3D(planetMultiDArray, times)
     %colours for markers
     %TODO specify color based on size??
     markers = ["ro", "bo","go","ko", "ro", "bo", "go","ko","ro", "bo",...
@@ -10,6 +10,9 @@ function plotIt3D(planetMultiDArray)
     for i=1:length(planetMultiDArray(:,1,1))
         clf('reset');
         hold on
+        currentTime = times(i);
+        currentYear = floor(currentTime/365.256);
+        currentDay = mod(currentTime, 365.256);
         timePoint = planetMultiDArray(i,:,:);
         for n=1:PLANET_NUMBER
             x = timePoint(1, 3, n);
@@ -22,6 +25,8 @@ function plotIt3D(planetMultiDArray)
         xlim([-10^12 10^12])
         ylim([-10^12 10^12])
         zlim([-10^10 10^10])
+        disp(times(i))
+        legend(currentYear + "Years" + round(currentDay) + "Days");
         view(100,80)
         
         Frames(i) = getframe; % save frames

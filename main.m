@@ -13,5 +13,5 @@ function main()
     
     populatedArray=iterate(planetMultiDArray, times);
     %plotIt2D(populatedArray)
-    plotIt3D(populatedArray)
+    plotIt3D(populatedArray, times)
 end
