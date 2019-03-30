@@ -1,5 +1,5 @@
 function deriv=der(state, otherPlanets)
-    G=6.67*10^-11;
+    G=4*pi^2;
     %Unravel the state
     targetPlanetR=[state(1) state(2) state(3)];
     targetPlanetV=[state(4) state(5) state(6)];

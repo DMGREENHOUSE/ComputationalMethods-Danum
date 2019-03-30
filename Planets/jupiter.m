@@ -1,8 +1,7 @@
 function planet=jupiter()
-%%%%REWRITE
-    mass = [1.898e+27];
-    radius = 6.9911e+7;
-    r = [0,778.5e+9,0];
-    v = [1.2917e+04,0,0];
-    planet=[mass, radius, r, v];
+    mass = 1.89819e+27;
+    radius = 7.1492e+7;
+    time=4332.589;
+    distoSun = 7.7857e+11;
+    planet=units(mass, radius, distoSun, time)
 end

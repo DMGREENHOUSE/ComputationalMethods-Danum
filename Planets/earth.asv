@@ -1,0 +1,17 @@
+function planet=earth()
+    mass = 5.972*10^24;
+    radius = 6.371e+6;
+    time=365.256
+    distoSun = 149.6*10^9;
+    v = [0,-29785.67831,0];
+    planet=units(mass, radius, distoSun, time)
+end
+
+function planet=earth()
+    mass = 5.972*10^24;
+    radius = 6.371e+6;
+    time=365.256
+    distoSun = 149.6*10^9;
+    v = [0,-29785.67831,0];
+    planet=units(mass, radius, distoSun, time)
+end
