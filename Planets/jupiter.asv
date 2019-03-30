@@ -1,7 +1,0 @@
-function planet=jupite()
-    mass = %kg
-    radius = %radius
-    time=%days
-    distoSun = %metres
-    planet=units(mass, radius, distoSun, time)
-end

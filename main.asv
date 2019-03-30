@@ -12,8 +12,7 @@ function main()
     planetMultiDArray(1,:,6) = saturn();
     planetMultiDArray(1,:,7) = uranus();
     planetMultiDArray(1,:,8) = neptune
-    planetMultiDArray(1,:,9) = pluto();
-    %    planetMultiDArray(1,:,4) = moon();
+    planetMultiDArray(1,:,1) = sun();
     
     populatedArray=iterate(planetMultiDArray, times);
     %plotIt2D(populatedArray)

@@ -5,7 +5,7 @@ function plotIt3D(planetMultiDArray, times)
         "go","ko", "ro", "bo", "go","ko"];
     PLANET_NUMBER = length(planetMultiDArray(1,1,:))
     %Set marker coefficient
-    markerCoef = 1/(0.2*6.9551e1);%km
+    markerCoef = 100;
     markerPowerCoef = 0.35;
     for i=1:length(planetMultiDArray(:,1,1))
         clf('reset');
@@ -20,12 +20,13 @@ function plotIt3D(planetMultiDArray, times)
             z = timePoint(1, 5, n);
             markerColour = markers(n);
             markerSize = (timePoint(1, 2, n)^markerPowerCoef)*markerCoef;
+            disp("MS: " + markerSize)
+            disp("x: " + x)
             scatter3(x,y,z,markerSize,markerColour, 'filled')
         end
-        xlim([-10^12 10^12])
-        ylim([-10^12 10^12])
-        zlim([-10^10 10^10])
-        disp(times(i))
+        xlim([-40 40])
+        ylim([-40 40])
+        zlim([-40 40])
         legend(currentYear + "Years" + round(currentDay) + "Days");
         view(100,80)
         
