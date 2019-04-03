@@ -7,5 +7,5 @@ newRadius=radius/AU;
 newR=[0, r/AU, 0];
 iniV=2*pi*r/(AU*newT);
 v=[-iniV,0,0];
-output=[newMass, newRadius, newR, v];
+output=[newMass, newRadius, newR, v, newT];
 end

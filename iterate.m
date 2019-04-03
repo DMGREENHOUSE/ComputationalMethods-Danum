@@ -7,7 +7,8 @@ function populatedArray=iterate(planetMultiDArray, times)
             targetPlanetState = timePoint(1,3:8,j);
             targetPlanetMass = timePoint(1,1,j);
             targetPlanetRadius = timePoint(1,2,j);
-            otherPlanets = zeros(PLANET_NUMBER-1, 8);
+            targetPlanetOrbitTime = timePoint(1,9,j);
+            otherPlanets = zeros(PLANET_NUMBER-1, 9);
             for k=1:PLANET_NUMBER
                 if k<j
                     otherPlanets(k, :) = timePoint(1,:,k);
@@ -17,7 +18,7 @@ function populatedArray=iterate(planetMultiDArray, times)
                 end
             end
             finalState = rk4(targetPlanetState,tau,@der, otherPlanets);
-            planetMultiDArray(i+1,:,j) = [targetPlanetMass, targetPlanetRadius, finalState];
+            planetMultiDArray(i+1,:,j) = [targetPlanetMass, targetPlanetRadius, finalState, targetPlanetOrbitTime];
         end
     end
     populatedArray = planetMultiDArray;

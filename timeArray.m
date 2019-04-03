@@ -1,15 +1,19 @@
-function times=timeArray(target)
-    %For now, reverse calculate the velocity
+function times=timeArray(targetOrbitTime, STEPNUMBER, COMPLETE_ORBITS)
     %endTime in years
-    dist = target(4);
-    speed = target(6);
     startTime = 0;
-    if speed == 0 || dist ==0
-        endTime = 1;
+    if targetOrbitTime == 0
+        endTime = 1; %case for the sun
     else
-        period = abs(2*pi*dist/speed);
-        endTime = period*5/100;
+        endTime = round(targetOrbitTime, 3)*COMPLETE_ORBITS;
     end
-    stepNumber = 100;
-    times = linspace(startTime, endTime, stepNumber+1);
+    times = linspace(startTime, endTime, STEPNUMBER);
+    timeStep = times(2) - times(1);
+    if timeStep > 0.025
+        sprintf('WARNING: the time step (%d years)is too large for Mercury to stay in orbit', timeStep)
+        disp('Consider increasing the STEPNUMBER')
+    end
+    if timeStep > 0.0002
+        sprintf('WARNING: the time step (%d years)is too large for Moons to stay in orbit', timeStep)
+        disp('Consider increasing the STEPNUMBER')
+    end
 end
