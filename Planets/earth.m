@@ -1,14 +1,19 @@
-function planet=earth()
-%%%%REWRITE
-% Would recommend writing all inside one class and each planet can be
-% called from a function belonging to another class
-%Should take in known parameters such as distance from sun, orbital period
-%and then calculate the tangential velocity and distance in the new units
-%(fractions of sun-earth)
-%Should also be able to account for moons (make small deviations relative
-%to orbiting body)
-    mass = [5.972*10^24];
-    r = [149.6*10^9,0,0];
-    v = [0,29785.67831,0];
-    planet=[mass, r, v];
+function [planet, NAME, COLOR, TYPE, PARENT] = earth()
+    % NAME - "Name" - name of the object with first letter capitalised
+    % COLOR - [R, G, B]/255 - colour of the object in normalised RGB
+    % TYPE - "Type - type of the object with first letter capitalised (Sun, Planet, Moon...)
+    % PARENT - "Name" - name of the parent object that this object orbits with first letter capitalised
+    % MASS - kg - mass of the object in kg
+    % RADIUS - m -radius of the object in m
+    % DIST_TO_PARENT - m - average distance to the object's parent in m
+    % ORBIT_TIME - days - time for the object to orbit its parent in days
+    NAME = "Earth";
+    COLOR = [0, 128, 255]/255;
+    TYPE = "Planet";
+    PARENT = "Sun";
+    MASS = 5.9723*10^24;
+    RADIUS = 6.378137e+6;
+    ORBIT_TIME = 365.256;
+    DIST_TO_SUN = 149.595*10^9;
+    planet=units(MASS, RADIUS, DIST_TO_SUN, ORBIT_TIME);
 end

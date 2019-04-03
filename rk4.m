@@ -22,6 +22,5 @@ function xout=rk4(x,tau,derivsRK, param)
     F2 = feval(derivsRK,xtemp,param);
     xtemp = x + tau*F2;
     F3 = feval(derivsRK,xtemp,param);
-    %ALTERED- ONLY GIVES THE CHANGE
-    xout = tau/6.*(F0 + F3 + 2.*(F1+F2));
+    xout = x + tau/6.*(F0 + F3 + 2.*(F1+F2));
 return;

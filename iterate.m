@@ -4,32 +4,21 @@ function populatedArray=iterate(planetMultiDArray, times)
     for i=1:length(times)
         timePoint=planetMultiDArray(i,:,:);
         for j=1:PLANET_NUMBER
-            disp("NEWPLANET: " + j + "         Time: " + i)
-            
-            targetPlanetState = timePoint(1,2:7,j);
+            targetPlanetState = timePoint(1,3:8,j);
             targetPlanetMass = timePoint(1,1,j);
-            deltaState = [0,0,0,0,0,0];
+            targetPlanetRadius = timePoint(1,2,j);
+            targetPlanetOrbitTime = timePoint(1,9,j);
+            otherPlanets = zeros(PLANET_NUMBER-1, 9);
             for k=1:PLANET_NUMBER
-                if k~=j
-                    kthPlanetState = timePoint(1,2:7,k);
-                    kthPlanetMass = timePoint(1,1,k);
-                    % find state of target relative to the kth planets
-                    if k<j
-                        relativeState = targetPlanetState - kthPlanetState;
-                    %correct r as necessary (re-add on distance from other
-                    %planet)
-                    else
-                        relativeState = -targetPlanetState + kthPlanetState;
-                    end
-                    relativeChange = rk4(relativeState,tau,@der, kthPlanetMass);
-                    % displacement and velocity corrections
-                    deltaState = deltaState + relativeChange;
+                if k<j
+                    otherPlanets(k, :) = timePoint(1,:,k);
                 end
-                %%%%THE SUN's DATA IS BEING SAVED THE SAME AS THE EARTHS
+                if k>j
+                    otherPlanets(k-1, :) = timePoint(1,:,k);
+                end
             end
-            finalState = targetPlanetState + deltaState
-            planetMultiDArray(i+1,:,j) = [targetPlanetMass, finalState];
-            %planetMultiDArray(i+1,:,1) = [1.989*10^30, 0, 0, 0, 0, 0, 0];
+            finalState = rk4(targetPlanetState,tau,@der, otherPlanets);
+            planetMultiDArray(i+1,:,j) = [targetPlanetMass, targetPlanetRadius, finalState, targetPlanetOrbitTime];
         end
     end
     populatedArray = planetMultiDArray;
