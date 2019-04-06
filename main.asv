@@ -4,14 +4,18 @@ function main()
     %%%%% USER CHANGES %%%%%%%%%%%%%%%%%%%%%%%%%
     LOAD_SAVED_DATA = true;
     STEP_NUMBER = 1001; % This number will alter how long the programme runs for before plotting
-    PLOT_FREQUENCY = 80; % This number will alter how long the programme runs for 
-    COMPLETE_ORBITS = 1; % This number will alter the frame rate (how many days each frame contains)
+    TOTAL_TIME = 2; % [years] This number will alter how long the programme runs for before plotting
     PLOT_PACE = 0.1;
-    TARGET = "Oberon"; % Which View? e.g. Earth
+    TARGET = "Ariel"; % Which View? e.g. Earth
     SAVE_VIDEO = false;
     PLOT_RESIDUALS = false;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    times = timeArray(TOTAL_TIME, STEP_NUMBER);
     if LOAD_SAVED_DATA == false
+        %%%% USER CHANGE %%%%%
+        PLOT_FREQUENCY = 80; % This number will alter how long the programme runs for
+        %%%%%%%%%%%%%%%%%%%%%%
         %Pre-define for speed
         planetMultiDArray = zeros(1, 9);
         colors = zeros(1, 3);
@@ -53,14 +57,13 @@ function main()
                 planetMultiDArray(i,:) = moonCalc(planetMultiDArray(i,:), planetMultiDArray(parentIndex,:));
             end
         end
-        index = find(contains(names, TARGET));
-        times = timeArray(planetMultiDArray(index, 9), STEP_NUMBER, COMPLETE_ORBITS);
-        targetType = type(index);
         %Calculate positions of every object at all times
         [planetRadiusArray, planetPositionArray, newTimeArray] = iterate(planetMultiDArray, times, PLOT_FREQUENCY);
-        save('dataArrays.mat','planetRadiusArray','planetPositionArray','newTimeArray', 'names', 'colors', 'index', 'targetType')
+        save('dataArrays.mat','planetRadiusArray','planetPositionArray','newTimeArray', 'names', 'colors', 'type', )
     else
         load('dataArrays.mat')
     end
+    index = find(contains(names, TARGET));
+    targetType = type(index);
     plotIt3D(planetRadiusArray, planetPositionArray, newTimeArray, names, colors, index, targetType, PLOT_RESIDUALS, SAVE_VIDEO, PLOT_PACE)
 end

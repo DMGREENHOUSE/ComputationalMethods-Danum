@@ -1,4 +1,4 @@
-function plotIt3D(planetRadiusArray, planetPosArray, times, names, colors, viewObjectIndex, viewObjectType, PLOT_RESIDUALS, SAVE_VIDEO, PLOT_PACE)
+function plotIt3D(planetRadiusArray, planetPosArray, times, names, colors, viewObjectIndex, viewObjectParentIndex, viewObjectType, PLOT_RESIDUALS, SAVE_VIDEO, PLOT_PACE)
     PLANET_NUMBER = length(planetRadiusArray);
     %Set marker coefficient
     markerCoef = 100;
@@ -7,6 +7,7 @@ function plotIt3D(planetRadiusArray, planetPosArray, times, names, colors, viewO
     timeStepNumber = round(length(planetPosArray(:,1,1)));
     set(gcf, 'Position', get(0, 'Screensize')); %Make figure open in fullscreen
     dim = [.3 .5 .1 .3]; % Year-Day info box dimensions/position
+    max = [0, 0, 0];
 
     if PLOT_RESIDUALS == true
         RESIDUAL_NUMBER = 10;
@@ -56,7 +57,14 @@ function plotIt3D(planetRadiusArray, planetPosArray, times, names, colors, viewO
         end
         %Calc Relative View
         viewObjectR = timePoint(1, :, viewObjectIndex);
-        [xRange, yRange, zRange] = relativeView(viewObjectR, viewObjectType);
+        viewObjectParentR = timePoint(1, :, viewObjectParentIndex);
+        diff = abs(viewObjectParentR - viewObjectR)
+        if diff(1) > diff(2)
+            maxDiff = diff(1);
+        else
+            maxDiff = diff(2);
+        end
+        [xRange, yRange, zRange, max] = relativeView(viewObjectR, viewObjectType, maxDiff, max);
         xlim([xRange(1) xRange(2)])
         ylim([yRange(1) yRange(2)])
         zlim([zRange(1) zRange(2)])

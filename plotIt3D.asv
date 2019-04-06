@@ -1,4 +1,4 @@
-function plotIt3D(planetRadiusArray, planetPosArray, times, names, colors, viewObjectIndex, viewObjectType, PLOT_RESIDUALS, SAVE_VIDEO, PLOT_PACE)
+function plotIt3D(planetRadiusArray, planetPosArray, times, names, colors, viewObjectIndex, viewObjectParent, viewObjectType, PLOT_RESIDUALS, SAVE_VIDEO, PLOT_PACE)
     PLANET_NUMBER = length(planetRadiusArray);
     %Set marker coefficient
     markerCoef = 100;
@@ -56,7 +56,7 @@ function plotIt3D(planetRadiusArray, planetPosArray, times, names, colors, viewO
         end
         %Calc Relative View
         viewObjectR = timePoint(1, :, viewObjectIndex);
-        [xRange, yRange, zRange] = relativeView(viewObjectR, viewObjectType);
+        [xRange, yRange, zRange] = relativeView(viewObjectR, viewObjectType, viewObjectParentIndex);
         xlim([xRange(1) xRange(2)])
         ylim([yRange(1) yRange(2)])
         zlim([zRange(1) zRange(2)])
