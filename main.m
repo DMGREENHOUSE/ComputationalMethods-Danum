@@ -1,22 +1,39 @@
 function main()
     addpath('Planets');
-    %%%%% USER CHANGES %%%%%%%%%%%%%%%%%%%%%%%%%
-    LOAD_SAVED_DATA = true;
-    STEP_NUMBER = 1001; % This number will alter how long the programme runs for before plotting
-    PLOT_FREQUENCY = 80; % This number will alter how long the programme runs for 
-    COMPLETE_ORBITS = 1; % This number will alter the frame rate (how many days each frame contains)
-    PLOT_PACE = 0.1;
-    TARGET = "Oberon"; % Which View? e.g. Earth
-    SAVE_VIDEO = false;
-    PLOT_RESIDUALS = false;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    if LOAD_SAVED_DATA == false
+    %%%%%%%%%%%% MAIN USER CHANGES %%%%%%%%%%%%%
+    DATA = "total"; %accepts: calc, total, prev
+    PLOT = true;
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    %%%%%%%%%%%% DATA CALC CHANGES %%%%%%%%%%%%%
+    STEP_NUMBER = 8001; % This number will alter how long the programme runs for before plotting
+    TOTAL_TIME = 2; % [years] This number will alter how long the programme runs for before plotting
+    PLOT_FREQUENCY = 160; % This number will alter how long the programme runs for
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    %%%%%%%%%%%%% PLOTTING CHANGES %%%%%%%%%%%%%
+    PLOT_PACE = 0.001; % The refresh rate of the plot
+    PLOT_TIME = 5; % [years]
+    TARGET = "Sun"; % Which View? e.g. Earth
+    TRACK = false; % Track the target planet?
+    SAVE_VIDEO = false;
+    PLOT_RESIDUALS = true;
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    
+    
+    % If user does not specify to use the saved data, calculate it
+    %     according to user specification:
+    if DATA == "calc"
+        % Generate a time array according to user specification
+        times = timeArray(TOTAL_TIME, STEP_NUMBER);
         %Pre-define for speed
         planetMultiDArray = zeros(1, 9);
         colors = zeros(1, 3);
         % Will have form: 
-        % each row = planet
-        % across row (each column)[mass, radius, x, y, z, v_x, v_y, v_z, period]
+        %     each row = planet
+        %     across row (each column)[mass, radius, x, y, z, v_x, v_y, v_z, period]
 
         %Load all initial planet data
         [planetMultiDArray(1,:), names(1), colors(1,:), type(1), parent(1)] = sun();
@@ -52,14 +69,23 @@ function main()
                 planetMultiDArray(i,:) = moonCalc(planetMultiDArray(i,:), planetMultiDArray(parentIndex,:));
             end
         end
-        index = find(contains(names, TARGET));
-        times = timeArray(planetMultiDArray(index, 9), STEP_NUMBER, COMPLETE_ORBITS);
-        targetType = type(index);
         %Calculate positions of every object at all times
         [planetRadiusArray, planetPositionArray, newTimeArray] = iterate(planetMultiDArray, times, PLOT_FREQUENCY);
-        save('dataArrays.mat','planetRadiusArray','planetPositionArray','newTimeArray', 'names', 'colors', 'index', 'targetType')
-    else
-        load('dataArrays.mat')
+        save('dataArrays.mat','planetRadiusArray','planetPositionArray','newTimeArray', 'names', 'colors', 'type', 'parent', 'TOTAL_TIME')
+    elseif DATA == "prev"
+        load('dataArrays.mat')  % Load the prewritten data file 'dataArrays.mat' in main folder
+    elseif DATA == "total"
+        load('completeDataArrays.mat')  % Load the prewritten data file 'completeDataArrays.mat' in main folder
     end
-    plotIt3D(planetRadiusArray, planetPositionArray, newTimeArray, names, colors, index, targetType, PLOT_RESIDUALS, SAVE_VIDEO, PLOT_PACE)
+    index = find(contains(names, TARGET));
+    targetType = type(index);
+    if names(index) ~= "Sun"
+        parentIndex = find(contains(names, parent(index)));
+    else % the Sun's parent does not have a written data set
+        parentIndex = 1;
+    end
+    if PLOT == true
+        PLOT_TIME_FRACTION = PLOT_TIME/TOTAL_TIME;
+        plotIt3D(planetRadiusArray, planetPositionArray, newTimeArray, names, colors, index, parentIndex, targetType, PLOT_TIME_FRACTION, PLOT_RESIDUALS, TRACK, SAVE_VIDEO, PLOT_PACE)
+    end
 end

@@ -1,11 +1,6 @@
-function times=timeArray(targetOrbitTime, STEPNUMBER, COMPLETE_ORBITS)
+function times=timeArray(endTime, STEPNUMBER)
     %endTime in years
     startTime = 0;
-    if targetOrbitTime == 0
-        endTime = COMPLETE_ORBITS; %case for the sun
-    else
-        endTime = round(targetOrbitTime*COMPLETE_ORBITS, 3);
-    end
     times = linspace(startTime, endTime, STEPNUMBER);
     timeStep = times(2) - times(1);
     if timeStep > 0.025

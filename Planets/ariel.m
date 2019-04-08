@@ -13,7 +13,7 @@ function [ariel, NAME, COLOR, TYPE, PARENT] = ariel()
     PARENT = "Uranus";
     MASS = 1.35e+21;
     RADIUS = 5.789e+5;
-    DIST_TO_PARENT = 1.909+8;
+    DIST_TO_PARENT = 1.909e+8;
     ORBIT_TIME = 2.52;
     ariel = units(MASS, RADIUS, DIST_TO_PARENT, ORBIT_TIME);
 end

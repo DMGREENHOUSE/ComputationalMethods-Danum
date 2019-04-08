@@ -33,6 +33,7 @@ function [planetRadiusArray, planetPositionArray, newTimeArray] = iterate(oldArr
             populatedArray(count,:,:) = previousTimePoint(:,:).'; % Transpose
             newTimeArray(count) = times(i); % Record the time this data slice is being taken
             count = count+1;
+        fprintf('Progress: %d %%\n', round(i/totalTimePoints, 2)*100);
         end
     end
     planetPositionArray = populatedArray(:,3:5,:);
