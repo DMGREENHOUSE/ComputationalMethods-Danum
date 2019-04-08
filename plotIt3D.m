@@ -16,6 +16,7 @@ function plotIt3D(planetRadiusArray, planetPosArray, times, names, colors, viewO
     markerSizeArray = (planetRadiusArray.^MARKER_POWER)*MARKER_COEF;
     
     set(gcf, 'Position', get(0, 'Screensize')); %Make figure open in fullscreen
+    addToolbarExplorationButtons(gcf);
     dim = [.3 .5 .1 .3]; % Year-Day info box dimensions/position
 
     if PLOT_RESIDUALS == true
