@@ -1,6 +1,5 @@
 function main()
     addpath('Planets');
-    
     %%%%% USER CHANGES %%%%%%%%%%%%%%%%%%%%%%%%%
     LOAD_SAVED_DATA = true;
     STEP_NUMBER = 1001; % This number will alter how long the programme runs for before plotting
