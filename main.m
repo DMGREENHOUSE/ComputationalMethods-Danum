@@ -14,7 +14,8 @@ function main()
     
     %%%%%%%%%%%%% PLOTTING CHANGES %%%%%%%%%%%%%
     PLOT_PACE = 0.001; % The refresh rate of the plot
-    PLOT_TIME = 5; % [years]
+    PLOT_TIME = 20; % [years]
+    PLOT_POINT_FREQUENCY = 100;
     TARGET = "Sun"; % Which View? e.g. Earth
     TRACK = false; % Track the target planet?
     SAVE_VIDEO = false;
@@ -71,11 +72,11 @@ function main()
         end
         %Calculate positions of every object at all times
         [planetRadiusArray, planetPositionArray, newTimeArray] = iterate(planetMultiDArray, times, PLOT_FREQUENCY);
-        save('dataArrays.mat','planetRadiusArray','planetPositionArray','newTimeArray', 'names', 'colors', 'type', 'parent', 'TOTAL_TIME')
+        save('Data/dataArrays.mat','planetRadiusArray','planetPositionArray','newTimeArray', 'names', 'colors', 'type', 'parent', 'TOTAL_TIME')
     elseif DATA == "prev"
-        load('dataArrays.mat')  % Load the prewritten data file 'dataArrays.mat' in main folder
+        load('Data/dataArrays.mat')  % Load the prewritten data file 'dataArrays.mat' in main folder
     elseif DATA == "total"
-        load('completeDataArrays.mat')  % Load the prewritten data file 'completeDataArrays.mat' in main folder
+        load('Data/completeDataArrays.mat')  % Load the prewritten data file 'completeDataArrays.mat' in main folder
     end
     index = find(contains(names, TARGET));
     targetType = type(index);
@@ -86,6 +87,6 @@ function main()
     end
     if PLOT == true
         PLOT_TIME_FRACTION = PLOT_TIME/TOTAL_TIME;
-        plotIt3D(planetRadiusArray, planetPositionArray, newTimeArray, names, colors, index, parentIndex, targetType, PLOT_TIME_FRACTION, PLOT_RESIDUALS, TRACK, SAVE_VIDEO, PLOT_PACE)
+        plotIt3D(planetRadiusArray, planetPositionArray, newTimeArray, names, colors, index, parentIndex, targetType, PLOT_TIME_FRACTION, PLOT_POINT_FREQUENCY, PLOT_RESIDUALS, TRACK, SAVE_VIDEO, PLOT_PACE)
     end
 end

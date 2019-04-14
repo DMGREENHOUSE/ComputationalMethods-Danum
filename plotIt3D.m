@@ -1,4 +1,4 @@
-function plotIt3D(planetRadiusArray, planetPosArray, times, names, colors, viewObjectIndex, viewObjectParentIndex, viewObjectType, PLOT_TIME_FRACTION, PLOT_RESIDUALS, TRACK, SAVE_VIDEO, PLOT_PACE)
+function plotIt3D(planetRadiusArray, planetPosArray, times, names, colors, viewObjectIndex, viewObjectParentIndex, viewObjectType, PLOT_TIME_FRACTION, PLOT_POINT_FREQUENCY, PLOT_RESIDUALS, TRACK, SAVE_VIDEO, PLOT_PACE)
     PLANET_NUMBER = length(planetRadiusArray);
     TIME_STEP_NUMBER = round(length(times)*PLOT_TIME_FRACTION); % The number of time steps (data positions)
     
@@ -15,7 +15,9 @@ function plotIt3D(planetRadiusArray, planetPosArray, times, names, colors, viewO
     RESIDUAL_MARKER_COEF = 0.05;
     markerSizeArray = (planetRadiusArray.^MARKER_POWER)*MARKER_COEF;
     
+    figure('Name', 'Solar System Animation')
     set(gcf, 'Position', get(0, 'Screensize')); %Make figure open in fullscreen
+    set(gcf,'invertHardcopy','off')
     addToolbarExplorationButtons(gcf);
     dim = [.3 .5 .1 .3]; % Year-Day info box dimensions/position
 
@@ -61,9 +63,9 @@ function plotIt3D(planetRadiusArray, planetPosArray, times, names, colors, viewO
     % show the current time in years and days
     str = "0 Years " + "0 Days"; % Initial value, to be updated
     label = annotation('textbox',dim,'String',str,'FitBoxToText','on', 'Color','w');
-    
     % begin looking at each time point
-    for i=1:TIME_STEP_NUMBER
+    for n = 1 : round(TIME_STEP_NUMBER/PLOT_POINT_FREQUENCY)
+        i = n*PLOT_POINT_FREQUENCY;
         % Update the current displayed time
         currentTime = times(i)*365.256;
         currentYear = floor(currentTime/365.256);
@@ -110,11 +112,12 @@ function plotIt3D(planetRadiusArray, planetPosArray, times, names, colors, viewO
         end
         pause(PLOT_PACE); % pause the plot before looking at the next time point
         drawnow;
+        %fileName = sprintf('Images/%d_Days.png', currentDay);
+        %saveas(gcf, fileName)
     end
-    
     % If the user specifies to save the video, do so
     if SAVE_VIDEO == true
-        vidObj = VideoWriter('planetMotion.avi');
+        vidObj = VideoWriter('Videos/planetMotion.avi');
         vidObj.Quality = 100;
         vidObj.FrameRate = 1;
         open(vidObj);

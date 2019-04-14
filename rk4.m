@@ -14,8 +14,8 @@ function xout=rk4(x,tau,derivsRK, param)
     % param = extra parameters passed to derivsRK
     % Output arguments -
     % xout = new value of x after a step of size tau
-    half_tau = 0.5*tau;
     F0 = feval(derivsRK,x,param);
+    half_tau = 0.5*tau;
     xtemp = x + half_tau*F0;
     F1 = feval(derivsRK,xtemp,param);
     xtemp = x + half_tau*F1;

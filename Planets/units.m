@@ -1,6 +1,6 @@
 function output=units(mass, radius, r, T)
 %input units; mass-Kgs, radius-metres, r-metres, Time-days)
-%output: mass - Solar Mass; Radius - AU; r - AU/yr, 
+%output: mass - Solar Mass; distance - AU; velocity - AU/yr, time - years
 AU=149.6*10^9;
 newT=T/365.256;
 newMass=mass/(1.989*10^30);

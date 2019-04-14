@@ -2,11 +2,11 @@ function [xRange, yRange, zRange]=relativeView(viewObjectR, type, diff)
     if type == "Sun"
         xConstant = 40;
         yConstant = 40;
-        zConstant = 40;
+        zConstant = 0.3;
     elseif type == "Planet"
-        xConstant = 0.5*diff;
-        yConstant = 0.5*diff;
-        zConstant = 5;
+        xConstant = 0.005*diff;
+        yConstant = 0.005*diff;
+        zConstant = 0.3;
     elseif type == "Moon"
         xConstant = 2*diff;
         yConstant = 2*diff;
